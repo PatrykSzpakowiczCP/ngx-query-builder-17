@@ -1,8 +1,8 @@
 # ngx-query-builder
-[![npm version](https://badge.fury.io/js/@kerwin612%2Fngx-query-builder.svg)](https://badge.fury.io/js/@kerwin612%2Fngx-query-builder)
-[![npm downloads a month](https://img.shields.io/npm/dm/@kerwin612%2Fngx-query-builder.svg)](https://img.shields.io/npm/dm/@kerwin612%2Fngx-query-builder.svg)
-[![npm downloads a week](https://img.shields.io/npm/dt/@kerwin612%2Fngx-query-builder.svg)](https://img.shields.io/npm/dt/@kerwin612%2Fngx-query-builder.svg)
-[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod&color=green)](https://gitpod.io/#https://github.com/kerwin612/ngx-query-builder)
+[![npm version](https://badge.fury.io/js/@eliot-ragueneau%2Fngx-query-builder.svg)](https://badge.fury.io/js/@eliot-ragueneau%2Fngx-query-builder)
+[![npm downloads a month](https://img.shields.io/npm/dm/@eliot-ragueneau%2Fngx-query-builder.svg)](https://img.shields.io/npm/dm/@eliot-ragueneau%2Fngx-query-builder.svg)
+[![npm downloads a week](https://img.shields.io/npm/dt/@eliot-ragueneau%2Fngx-query-builder.svg)](https://img.shields.io/npm/dt/@eliot-ragueneau%2Fngx-query-builder.svg)
+[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod&color=green)](https://gitpod.io/#https://github.com/EliotRagueneau/ngx-query-builder)
 
 A modernized Angular 4+ query builder based on jQuery QueryBuilder. Support for heavy customization with Angular components and provides a flexible way to handle custom data types.  
 
@@ -14,7 +14,7 @@ A modernized Angular 4+ query builder based on jQuery QueryBuilder. Support for 
 
 - Angular latest, use 0.6.3+
 
-`npm install @kerwin612/ngx-query-builder`
+`npm install @eliot-ragueneau/ngx-query-builder`
 
 ---
 

@@ -124,9 +124,9 @@ export class AppComponent {
   };
 
   public currentConfig!: QueryBuilderConfig;
-  public allowRuleset: boolean = true;
+  public allowRuleset = true;
   public allowCollapse!: boolean;
-  public persistValueOnFieldChange: boolean = false;
+  public persistValueOnFieldChange = false;
 
   constructor(
     private formBuilder: FormBuilder
@@ -136,18 +136,18 @@ export class AppComponent {
   }
 
   switchModes(event: Event) {
-    this.currentConfig = (<HTMLInputElement>event.target).checked ? this.entityConfig : this.config;
+    this.currentConfig = (event.target as HTMLInputElement).checked ? this.entityConfig : this.config;
   }
 
   changeDisabled(event: Event) {
-    (<HTMLInputElement>event.target).checked ? this.queryCtrl.disable() : this.queryCtrl.enable();
+    (event.target as HTMLInputElement).checked ? this.queryCtrl.disable() : this.queryCtrl.enable();
   }
 
   changeRulesLimit(event: Event) {
-    this.currentConfig = {...this.currentConfig, rulesLimit: parseInt((<HTMLInputElement>event.target).value, 10)} as QueryBuilderConfig;
+    this.currentConfig = {...this.currentConfig, rulesLimit: parseInt((event.target as HTMLInputElement).value, 10)} as QueryBuilderConfig;
   }
 
   changeLevelLimit(event: Event) {
-    this.currentConfig = {...this.currentConfig, levelLimit: parseInt((<HTMLInputElement>event.target).value, 10)} as QueryBuilderConfig;
+    this.currentConfig = {...this.currentConfig, levelLimit: parseInt((event.target as HTMLInputElement).value, 10)} as QueryBuilderConfig;
   }
 }

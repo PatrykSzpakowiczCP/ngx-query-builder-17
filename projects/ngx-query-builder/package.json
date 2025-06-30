@@ -1,15 +1,15 @@
 {
-  "name": "@kerwin612/ngx-query-builder",
+  "name": "@eliot-ragueneau/ngx-query-builder",
   "version": "19.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kerwin612/ngx-query-builder"
+    "url": "https://github.com/EliotRagueneau/ngx-query-builder"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kerwin612/ngx-query-builder/issues"
+    "url": "https://github.com/EliotRagueneau/ngx-query-builder/issues"
   },
-  "homepage": "https://github.com/kerwin612/ngx-query-builder",
+  "homepage": "https://github.com/EliotRagueneau/ngx-query-builder",
   "peerDependencies": {
     "@angular/common": "^19.0.0",
     "@angular/core": "^19.0.0"

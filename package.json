@@ -21,17 +21,17 @@
     "visual"
   ],
   "author": {
-    "name": "kerwin612",
-    "url": "https://github.com/kerwin612/"
+    "name": "eliot-ragueneau",
+    "url": "https://github.com/EliotRagueneau/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/kerwin612/ngx-query-builder"
+    "url": "https://github.com/EliotRagueneau/ngx-query-builder"
   },
   "bugs": {
-    "url": "https://github.com/kerwin612/ngx-query-builder/issues"
+    "url": "https://github.com/EliotRagueneau/ngx-query-builder/issues"
   },
-  "homepage": "https://github.com/kerwin612/ngx-query-builder",
+  "homepage": "https://github.com/EliotRagueneau/ngx-query-builder",
   "dependencies": {
     "@angular/animations": "^19.2.14",
     "@angular/cdk": "~18.1.0",
