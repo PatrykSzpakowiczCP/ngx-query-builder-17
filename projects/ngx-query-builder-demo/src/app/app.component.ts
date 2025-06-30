@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { QueryBuilderClassNames, QueryBuilderConfig } from 'ngx-query-builder';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.less']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.less'],
+    standalone: false
 })
 export class AppComponent {
   public queryCtrl: FormControl;
