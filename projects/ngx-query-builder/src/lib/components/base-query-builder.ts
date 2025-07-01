@@ -52,7 +52,6 @@ import {
 export abstract class BaseQueryBuilder implements ControlValueAccessor, Validator, AfterContentInit {
   abstract isRoot(): boolean;
 
-
   // inputs
   readonly disabled = model(false);
   readonly data = model<RuleSet>({condition: 'and', rules: []});
@@ -293,7 +292,7 @@ export abstract class BaseQueryBuilder implements ControlValueAccessor, Validato
   }
 
   getFields(entity: string): Field[] {
-    if (this.entities && this.entities.length > 0 && entity) {
+    if (this.entities() && this.entities().length > 0 && entity) {
       return this.fields().filter((field) => {
         return field && field.entity === entity;
       });
