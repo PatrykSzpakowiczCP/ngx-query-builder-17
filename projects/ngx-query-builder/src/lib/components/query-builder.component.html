@@ -37,26 +37,25 @@
                     </div>
                   }
                   @if (isRuleset(rule)) {
-                    <inner-query-builder [data]="rule" [level]="level() + 1" [disabled]="disabled()"
-                                         [parentTouchedCallback]="onTouchedCallback"
-                                         [parentChangeCallback]="onChangeCallback"
-                                         [parentInputTypeToTemplate]="inputTypeToTemplate()"
-                                         [parentOperatorTemplate]="operatorTemplate"
-                                         [parentFieldTemplate]="fieldTemplate"
-                                         [parentEntityTemplate]="entityTemplate"
-                                         [parentSwitchGroupTemplate]="switchGroupTemplate"
-                                         [parentButtonGroupTemplate]="buttonGroupTemplate"
-                                         [parentRulesetAddRuleButtonTemplate]="rulesetAddRuleButtonTemplate"
-                                         [parentRulesetAddRulesetButtonTemplate]="rulesetAddRulesetButtonTemplate"
-                                         [parentRulesetRemoveButtonTemplate]="rulesetRemoveButtonTemplate"
-                                         [parentRuleRemoveButtonTemplate]="ruleRemoveButtonTemplate"
-                                         [parentEmptyWarningTemplate]="emptyWarningTemplate"
-                                         [parentArrowIconTemplate]="arrowIconTemplate"
-                                         [parentValue]="data()" [classNames]="classNames()" [config]="config()"
+                    <inner-query-builder [data]="rule" [index]="i" [level]="level() + 1" [disabled]="disabled()"
+                                         [onTouchedCallback]="onTouchedCallback()"
+                                         [onChangeCallback]="onChangeCallback()"
+                                         [inputTypeToTemplate]="inputTypeToTemplate()"
+                                         [operatorTemplate]="operatorTemplate()"
+                                         [fieldTemplate]="fieldTemplate()"
+                                         [entityTemplate]="entityTemplate()"
+                                         [switchGroupTemplate]="switchGroupTemplate()"
+                                         [buttonGroupTemplate]="buttonGroupTemplate()"
+                                         [rulesetAddRuleButtonTemplate]="rulesetAddRuleButtonTemplate()"
+                                         [rulesetAddRulesetButtonTemplate]="rulesetAddRulesetButtonTemplate()"
+                                         [rulesetRemoveButtonTemplate]="rulesetRemoveButtonTemplate()"
+                                         [ruleRemoveButtonTemplate]="ruleRemoveButtonTemplate()"
+                                         [emptyWarningTemplate]="emptyWarningTemplate()"
+                                         [arrowIconTemplate]="arrowIconTemplate()"
+                                         [(parentValue)]="data" [classNames]="classNames()" [config]="config()"
                                          [allowRuleset]="allowRuleset()"
                                          [allowCollapse]="allowCollapse()" [emptyMessage]="emptyMessage()"
-                                         [operatorMap]="operatorMap()">
-                    </inner-query-builder>
+                                         [operatorMap]="operatorMap()"/>
                   }
                 </li>
               }
@@ -72,7 +71,7 @@
 <!--_arrowIconTpl-->
 <ng-template #_arrowIconTpl>
   @if (getArrowIconTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getArrowIconContext()"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getArrowIconContext()" />
   } @else {
     <i [ngClass]="getClassNames('arrowIcon')"></i>
   }
@@ -81,7 +80,7 @@
 <!--_switchGroupTpl-->
 <ng-template #_switchGroupTpl>
   @if (getSwitchGroupTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getSwitchGroupContext()"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getSwitchGroupContext()" />
   } @else {
     @if (data()) {
       <div [ngClass]="getClassNames('switchGroup', 'transition')">
@@ -98,7 +97,6 @@
       </div>
     }
   }
-
 </ng-template>
 
 <!--_buttonGroupTpl-->
@@ -123,19 +121,18 @@
 <!--_rulesetAddRuleButtonTpl-->
 <ng-template #_rulesetAddRuleButtonTpl let-rule>
   @if (getRulesetAddRuleButtonTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getRulesetAddRuleButtonContext(rule)"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getRulesetAddRuleButtonContext(rule)" />
   } @else {
     <button type="button" (click)="addRule()" [ngClass]="getClassNames('button')" [disabled]=disabled()>
       <i [ngClass]="getClassNames('addIcon')"></i> Rule
     </button>
   }
-
 </ng-template>
 
 <!--_rulesetAddRulesetButtonTpl-->
 <ng-template #_rulesetAddRulesetButtonTpl let-rule>
   @if (getRulesetAddRulesetButtonTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getRulesetAddRulesetButtonContext(rule)"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getRulesetAddRulesetButtonContext(rule)" />
   } @else {
     @if (allowRuleset()) {
       <button type="button" (click)="addRuleSet()" [ngClass]="getClassNames('button')" [disabled]=disabled()>
@@ -143,14 +140,13 @@
       </button>
     }
   }
-
 </ng-template>
 
 
 <!--_entityTpl-->
 <ng-template #_entityTpl let-rule let-index="index">
   @if (getEntityTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getEntityContext(rule)"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getEntityContext(rule)" />
   } @else {
     <div [ngClass]="getClassNames('entityControlSize')">
       <select [ngClass]="getClassNames('entityControl')" [(ngModel)]="rule.entity"
@@ -169,7 +165,7 @@
 <!--_fieldTpl-->
 <ng-template #_fieldTpl let-rule>
   @if (getFieldTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getFieldContext(rule)"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getFieldContext(rule)" />
   } @else {
     <div [ngClass]="getClassNames('fieldControlSize')">
       <select [ngClass]="getClassNames('fieldControl')" [(ngModel)]="rule.field"
@@ -188,7 +184,7 @@
 <!--_operatorTpl-->
 <ng-template #_operatorTpl let-rule>
   @if (getOperatorTemplate(); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getOperatorContext(rule)"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getOperatorContext(rule)" />
   } @else {
     <div [ngClass]="getClassNames('operatorControlSize')">
       <select [ngClass]="getClassNames('operatorControl')" [(ngModel)]="rule.operator"
@@ -207,7 +203,7 @@
 <!--_inputTpl-->
 <ng-template #_inputTpl let-rule>
   @if (findTemplateForRule(rule); as template) {
-    <ng-container *ngTemplateOutlet="template; context: getInputContext(rule)"></ng-container>
+    <ng-container *ngTemplateOutlet="template; context: getInputContext(rule)" />
   } @else {
     <div [ngClass]="getClassNames('inputControlSize')">
       @switch (getInputType(rule.field, rule.operator || '')) {
@@ -277,7 +273,7 @@
 <ng-template #_emptyWarningTpl let-local>
   @if (getEmptyWarningTemplate(); as template) {
     @if (local.invalid) {
-      <ng-container *ngTemplateOutlet="template; context: getEmptyWarningContext()"></ng-container>
+      <ng-container *ngTemplateOutlet="template; context: getEmptyWarningContext()" />
     }
   } @else {
     @if (local.invalid) {
@@ -286,5 +282,4 @@
       </p>
     }
   }
-
 </ng-template>

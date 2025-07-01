@@ -148,6 +148,11 @@
     padding: 6px 8px;
   }
 
+  .q-ruleset {
+    display: flex;
+    flex-direction: column;
+  }
+
   .q-rule {
     background: white;
     display: flex;
@@ -186,6 +191,7 @@
   .q-tree-container {
     width: 100%;
     transition: ease-in 0.25s max-height;
+    overflow: clip;
 
     &.q-collapsed {
       max-height: 0 !important;

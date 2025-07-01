@@ -38,7 +38,6 @@ import {
   ChangeDetectorRef,
   Component,
   computed,
-  ContentChild,
   contentChildren,
   ElementRef,
   forwardRef,
@@ -46,7 +45,8 @@ import {
   input,
   model, signal,
   TemplateRef,
-  ViewChild
+  viewChild,
+  contentChild
 } from '@angular/core';
 
 export const CONTROL_VALUE_ACCESSOR: any = {
@@ -130,8 +130,8 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
   };
 
   // For ControlValueAccessor interface
-  public onChangeCallback!: () => void;
-  public onTouchedCallback!: () => any;
+  public onChangeCallback = signal<(() => void) | undefined>(undefined);
+  public onTouchedCallback = signal<(() => any) | undefined>(undefined);
 
   readonly disabled = model(false);
   readonly level = input(0);
@@ -145,7 +145,7 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
 
   readonly persistValueOnFieldChange = input(false);
 
-  @ViewChild('treeContainer', {static: true}) treeContainer?: ElementRef;
+  readonly treeContainer = viewChild<ElementRef>('treeContainer');
 
 
   contentInit = signal(false)
@@ -154,17 +154,17 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
     setTimeout(() => this.contentInit.set(true)); // Avoid sending warning because templates aren't initialised yet
   }
 
-  @ContentChild(QueryButtonGroupDirective) buttonGroupTemplate?: QueryButtonGroupDirective;
-  @ContentChild(QuerySwitchGroupDirective) switchGroupTemplate?: QuerySwitchGroupDirective;
-  @ContentChild(QueryFieldDirective) fieldTemplate?: QueryFieldDirective;
-  @ContentChild(QueryEntityDirective) entityTemplate?: QueryEntityDirective;
-  @ContentChild(QueryOperatorDirective) operatorTemplate?: QueryOperatorDirective;
-  @ContentChild(QueryRulesetAddRuleButtonDirective) rulesetAddRuleButtonTemplate?: QueryRulesetAddRuleButtonDirective;
-  @ContentChild(QueryRulesetAddRulesetButtonDirective) rulesetAddRulesetButtonTemplate?: QueryRulesetAddRulesetButtonDirective;
-  @ContentChild(QueryRulesetRemoveButtonDirective) rulesetRemoveButtonTemplate?: QueryRulesetRemoveButtonDirective;
-  @ContentChild(QueryRuleRemoveButtonDirective) ruleRemoveButtonTemplate?: QueryRuleRemoveButtonDirective;
-  @ContentChild(QueryEmptyWarningDirective) emptyWarningTemplate?: QueryEmptyWarningDirective;
-  @ContentChild(QueryArrowIconDirective) arrowIconTemplate?: QueryArrowIconDirective;
+  readonly buttonGroupTemplate = contentChild(QueryButtonGroupDirective);
+  readonly switchGroupTemplate = contentChild(QuerySwitchGroupDirective);
+  readonly fieldTemplate = contentChild(QueryFieldDirective);
+  readonly entityTemplate = contentChild(QueryEntityDirective);
+  readonly operatorTemplate = contentChild(QueryOperatorDirective);
+  readonly rulesetAddRuleButtonTemplate = contentChild(QueryRulesetAddRuleButtonDirective);
+  readonly rulesetAddRulesetButtonTemplate = contentChild(QueryRulesetAddRulesetButtonDirective);
+  readonly rulesetRemoveButtonTemplate = contentChild(QueryRulesetRemoveButtonDirective);
+  readonly ruleRemoveButtonTemplate = contentChild(QueryRuleRemoveButtonDirective);
+  readonly emptyWarningTemplate = contentChild(QueryEmptyWarningDirective);
+  readonly arrowIconTemplate = contentChild(QueryArrowIconDirective);
 
   inputTemplates = contentChildren(QueryInputDirective)
   inputTypeToTemplate = computed(() => {
@@ -232,11 +232,11 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
   }
 
   registerOnChange(fn: any): void {
-    this.onChangeCallback = () => fn(this.data());
+    this.onChangeCallback.set(() => fn(this.data()));
   }
 
   registerOnTouched(fn: any): void {
-    this.onTouchedCallback = () => fn(this.data());
+    this.onTouchedCallback.set(() => fn(this.data()));
   }
 
   setDisabledState(isDisabled: boolean): void {
@@ -452,20 +452,21 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
   }
 
   transitionEnd(): void {
-    if (this.treeContainer) {
-      this.treeContainer.nativeElement.style.maxHeight = null;
+    const treeContainer = this.treeContainer();
+    if (treeContainer) {
+      treeContainer.nativeElement.style.maxHeight = null;
     }
   }
 
   toggleCollapse(): void {
     this.computedTreeContainerHeight();
     setTimeout(() => {
-      this.data().collapsed = !this.data().collapsed;
+      this.data.update(d => ({...d, collapsed: !d.collapsed}));
     }, 100);
   }
 
   computedTreeContainerHeight(): void {
-    const nativeElement: HTMLElement = this.treeContainer?.nativeElement;
+    const nativeElement: HTMLElement = this.treeContainer()?.nativeElement;
     if (nativeElement && nativeElement.firstElementChild) {
       nativeElement.style.maxHeight = (nativeElement.firstElementChild.clientHeight + 8) + 'px';
     }
@@ -581,52 +582,57 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
   }
 
   getOperatorTemplate(): TemplateRef<any> | undefined {
-    const t = this.operatorTemplate;
+    const t = this.operatorTemplate();
     return t?.template;
   }
 
   getFieldTemplate(): TemplateRef<any> | undefined {
-    const t = this.fieldTemplate;
+    const t = this.fieldTemplate();
     return t?.template;
   }
 
   getEntityTemplate(): TemplateRef<any> | undefined {
-    const t = this.entityTemplate;
+    const t = this.entityTemplate();
     return t?.template;
   }
 
   getArrowIconTemplate(): TemplateRef<any> | undefined {
-    const t = this.arrowIconTemplate;
+    const t = this.arrowIconTemplate();
     return t?.template;
   }
 
   getButtonGroupTemplate(): TemplateRef<any> | undefined {
-    const t = this.buttonGroupTemplate;
+    const t = this.buttonGroupTemplate();
     return t?.template;
   }
 
   getSwitchGroupTemplate(): TemplateRef<any> | undefined {
-    const t = this.switchGroupTemplate;
+    const t = this.switchGroupTemplate();
     return t?.template;
   }
 
   getRulesetAddRuleButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.rulesetAddRuleButtonTemplate;
+    const t = this.rulesetAddRuleButtonTemplate();
     return t?.template;
   }
 
   getRulesetAddRulesetButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.rulesetAddRulesetButtonTemplate;
+    const t = this.rulesetAddRulesetButtonTemplate();
     return t?.template;
   }
 
   getRuleRemoveButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.ruleRemoveButtonTemplate;
+    const t = this.ruleRemoveButtonTemplate();
+    return t?.template;
+  }
+
+  getRulesetRemoveButtonTemplate(): TemplateRef<any> | undefined {
+    const t = this.rulesetRemoveButtonTemplate();
     return t?.template;
   }
 
   getEmptyWarningTemplate(): TemplateRef<any> | undefined {
-    const t = this.emptyWarningTemplate;
+    const t = this.emptyWarningTemplate();
     return t?.template;
   }
 
@@ -845,14 +851,14 @@ export class QueryBuilderComponent implements ControlValueAccessor, Validator, A
 
   protected handleDataChange(): void {
     this.changeDetectorRef.markForCheck();
-    if (this.onChangeCallback) {
-      this.onChangeCallback();
+    if (this.onChangeCallback()) {
+      this.onChangeCallback()!();
     }
   }
 
   protected handleTouched(): void {
-    if (this.onTouchedCallback) {
-      this.onTouchedCallback();
+    if (this.onTouchedCallback()) {
+      this.onTouchedCallback()!();
     }
   }
 
