@@ -148,7 +148,7 @@
     padding: 6px 8px;
   }
 
-  .q-ruleset {
+  .q-flex-container {
     display: flex;
     flex-direction: column;
   }

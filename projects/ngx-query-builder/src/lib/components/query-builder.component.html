@@ -1,5 +1,5 @@
 @if ({ruleset: isRuleset(data()), invalid: !config().allowEmptyRulesets && isEmptyRuleset(data())}; as local) {
-  <div [ngClass]="getQueryRulesetClassName(local)">
+  <div [ngClass]="getQueryRulesetClassName(local)" class="q-flex-container">
     <div [ngClass]="getClassNames('switchRow')">
       @if (allowCollapse()) {
         <a (click)="toggleCollapse()" [ngClass]="getClassNames('arrowIconButton', data().collapsed ? 'collapsed' : null)">
