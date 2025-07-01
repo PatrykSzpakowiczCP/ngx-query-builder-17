@@ -88,6 +88,7 @@ export interface QueryBuilderConfig {
   rulesLimit?: number;
   levelLimit?: number;
   allowEmptyRulesets?: boolean;
+  wrapRoot?: boolean;
   getOperators?: (fieldName: string, field: Field) => string[];
   getInputType?: (field: string, operator: string) => string;
   getOptions?: (field: string) => Option[];
@@ -149,10 +150,10 @@ export interface InputContext {
 }
 
 export interface ButtonGroupContext {
-  parentValue: RuleSet;
+  parentValue?: RuleSet;
   addRule: any;
   addRuleSet: any;
-  removeRuleSet: any;
+  removeRuleSet?: any;
   getDisabledState: () => boolean;
   $implicit: RuleSet;
 }

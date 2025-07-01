@@ -1,28 +1,23 @@
+import {ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator} from '@angular/forms';
+import {QueryOperatorDirective} from '../directives/query-operator.directive';
+import {QueryFieldDirective} from '../directives/query-field.directive';
+import {QueryEntityDirective} from '../directives/query-entity.directive';
+import {QuerySwitchGroupDirective} from '../directives/query-switch-group.directive';
+import {QueryButtonGroupDirective} from '../directives/query-button-group.directive';
+import {QueryInputDirective} from '../directives/query-input.directive';
+import {QueryRulesetAddRuleButtonDirective} from '../directives/query-ruleset-add-rule-button.directive';
+import {QueryRulesetAddRulesetButtonDirective} from '../directives/query-ruleset-add-ruleset-button.directive';
+import {QueryRulesetRemoveButtonDirective} from '../directives/query-ruleset-remove-button.directive';
+import {QueryRuleRemoveButtonDirective} from '../directives/query-rule-remove-button.directive';
+import {QueryEmptyWarningDirective} from '../directives/query-empty-warning.directive';
+import {QueryArrowIconDirective} from '../directives/query-arrow-icon.directive';
 import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS,
-  ValidationErrors,
-  Validator
-} from '@angular/forms';
-import { QueryOperatorDirective } from '../directives/query-operator.directive';
-import { QueryFieldDirective } from '../directives/query-field.directive';
-import { QueryEntityDirective } from '../directives/query-entity.directive';
-import { QuerySwitchGroupDirective } from '../directives/query-switch-group.directive';
-import { QueryButtonGroupDirective } from '../directives/query-button-group.directive';
-import { QueryInputDirective } from '../directives/query-input.directive';
-import { QueryRulesetAddRuleButtonDirective } from '../directives/query-ruleset-add-rule-button.directive';
-import { QueryRulesetAddRulesetButtonDirective } from '../directives/query-ruleset-add-ruleset-button.directive';
-import { QueryRulesetRemoveButtonDirective } from '../directives/query-ruleset-remove-button.directive';
-import { QueryRuleRemoveButtonDirective } from '../directives/query-rule-remove-button.directive';
-import { QueryEmptyWarningDirective } from '../directives/query-empty-warning.directive';
-import { QueryArrowIconDirective } from '../directives/query-arrow-icon.directive';
-import {
+  ArrowIconContext,
   ButtonGroupContext,
+  EmptyWarningContext,
   Entity,
-  Field,
-  SwitchGroupContext,
   EntityContext,
+  Field,
   FieldContext,
   InputContext,
   LocalRuleMeta,
@@ -30,24 +25,25 @@ import {
   Option,
   QueryBuilderClassNames,
   QueryBuilderConfig,
-  RuleRemoveButtonContext,
-  ArrowIconContext,
   Rule,
+  RuleRemoveButtonContext,
   RuleSet,
-  EmptyWarningContext, RulesetRemoveButtonContext, RulesetAddRulesetButtonContext, RulesetAddRuleButtonContext,
+  RulesetAddRuleButtonContext,
+  RulesetAddRulesetButtonContext,
+  SwitchGroupContext,
 } from '../models/query-builder.interfaces';
 import {
   ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
+  ElementRef,
   forwardRef,
   Input,
   OnChanges,
   QueryList,
   TemplateRef,
-  ViewChild,
-  ElementRef
+  ViewChild
 } from '@angular/core';
 
 export const CONTROL_VALUE_ACCESSOR: any = {
@@ -119,65 +115,50 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   public onChangeCallback!: () => void;
   public onTouchedCallback!: () => any;
 
-  @Input() disabled!: boolean;
+  @Input() disabled = false;
   @Input() level = 0;
-  @Input() data: RuleSet = { condition: 'and', rules: [] };
+  @Input() data: RuleSet = {condition: 'and', rules: []};
   @Input() allowRuleset = true;
   @Input() allowCollapse = false;
   @Input() emptyMessage = 'A ruleset cannot be empty. Please add a rule or remove it all together.';
-  @Input() classNames!: QueryBuilderClassNames;
-  @Input() operatorMap!: Record<string, string[]>;
-  @Input() parentValue!: RuleSet;
-  @Input() config: QueryBuilderConfig = { fields: {} };
+  @Input() classNames?: QueryBuilderClassNames;
+  @Input() operatorMap?: Record<string, string[]>;
+  @Input() config: QueryBuilderConfig = {fields: {}};
 
-  @Input() parentArrowIconTemplate!: QueryArrowIconDirective;
-  @Input() parentInputTemplates!: QueryList<QueryInputDirective>;
-  @Input() parentOperatorTemplate!: QueryOperatorDirective;
-  @Input() parentFieldTemplate!: QueryFieldDirective;
-  @Input() parentEntityTemplate!: QueryEntityDirective;
-  @Input() parentSwitchGroupTemplate!: QuerySwitchGroupDirective;
-  @Input() parentButtonGroupTemplate!: QueryButtonGroupDirective;
-  @Input() parentRulesetAddRuleButtonTemplate!: QueryRulesetAddRuleButtonDirective;
-  @Input() parentRulesetAddRulesetButtonTemplate!: QueryRulesetAddRulesetButtonDirective;
-  @Input() parentRulesetRemoveButtonTemplate!: QueryRulesetRemoveButtonDirective;
-  @Input() parentRuleRemoveButtonTemplate!: QueryRuleRemoveButtonDirective;
-  @Input() parentEmptyWarningTemplate!: QueryEmptyWarningDirective;
-  @Input() parentChangeCallback!: () => void;
-  @Input() parentTouchedCallback!: () => void;
   @Input() persistValueOnFieldChange = false;
 
-  @ViewChild('treeContainer', {static: true}) treeContainer!: ElementRef;
+  @ViewChild('treeContainer', {static: true}) treeContainer?: ElementRef;
 
-  @ContentChild(QueryButtonGroupDirective) buttonGroupTemplate!: QueryButtonGroupDirective;
-  @ContentChild(QuerySwitchGroupDirective) switchGroupTemplate!: QuerySwitchGroupDirective;
-  @ContentChild(QueryFieldDirective) fieldTemplate!: QueryFieldDirective;
-  @ContentChild(QueryEntityDirective) entityTemplate!: QueryEntityDirective;
-  @ContentChild(QueryOperatorDirective) operatorTemplate!: QueryOperatorDirective;
-  @ContentChild(QueryRulesetAddRuleButtonDirective) rulesetAddRuleButtonTemplate!: QueryRulesetAddRuleButtonDirective;
-  @ContentChild(QueryRulesetAddRulesetButtonDirective) rulesetAddRulesetButtonTemplate!: QueryRulesetAddRulesetButtonDirective;
-  @ContentChild(QueryRulesetRemoveButtonDirective) rulesetRemoveButtonTemplate!: QueryRulesetRemoveButtonDirective;
-  @ContentChild(QueryRuleRemoveButtonDirective) ruleRemoveButtonTemplate!: QueryRuleRemoveButtonDirective;
-  @ContentChild(QueryEmptyWarningDirective) emptyWarningTemplate!: QueryEmptyWarningDirective;
-  @ContentChild(QueryArrowIconDirective) arrowIconTemplate!: QueryArrowIconDirective;
-  @ContentChildren(QueryInputDirective) inputTemplates!: QueryList<QueryInputDirective>;
+  @ContentChild(QueryButtonGroupDirective) buttonGroupTemplate?: QueryButtonGroupDirective;
+  @ContentChild(QuerySwitchGroupDirective) switchGroupTemplate?: QuerySwitchGroupDirective;
+  @ContentChild(QueryFieldDirective) fieldTemplate?: QueryFieldDirective;
+  @ContentChild(QueryEntityDirective) entityTemplate?: QueryEntityDirective;
+  @ContentChild(QueryOperatorDirective) operatorTemplate?: QueryOperatorDirective;
+  @ContentChild(QueryRulesetAddRuleButtonDirective) rulesetAddRuleButtonTemplate?: QueryRulesetAddRuleButtonDirective;
+  @ContentChild(QueryRulesetAddRulesetButtonDirective) rulesetAddRulesetButtonTemplate?: QueryRulesetAddRulesetButtonDirective;
+  @ContentChild(QueryRulesetRemoveButtonDirective) rulesetRemoveButtonTemplate?: QueryRulesetRemoveButtonDirective;
+  @ContentChild(QueryRuleRemoveButtonDirective) ruleRemoveButtonTemplate?: QueryRuleRemoveButtonDirective;
+  @ContentChild(QueryEmptyWarningDirective) emptyWarningTemplate?: QueryEmptyWarningDirective;
+  @ContentChild(QueryArrowIconDirective) arrowIconTemplate?: QueryArrowIconDirective;
+  @ContentChildren(QueryInputDirective) inputTemplates?: QueryList<QueryInputDirective>;
 
-  private defaultTemplateTypes: string[] = [
+  protected defaultTemplateTypes: string[] = [
     'string', 'number', 'time', 'date', 'category', 'boolean', 'multiselect'];
-  private defaultPersistValueTypes: string[] = [
+  protected defaultPersistValueTypes: string[] = [
     'string', 'number', 'time', 'date', 'boolean'];
-  private defaultEmptyList: any[] = [];
-  private operatorsCache!: Record<string, string[]>;
-  private inputContextCache = new Map<Rule, InputContext>();
-  private operatorContextCache = new Map<Rule, OperatorContext>();
-  private fieldContextCache = new Map<Rule, FieldContext>();
-  private entityContextCache = new Map<Rule, EntityContext>();
-  private rulesetAddRuleButtonContextCache = new Map<Rule, RulesetAddRuleButtonContext>();
-  private rulesetAddRulesetButtonContextCache = new Map<Rule, RulesetAddRulesetButtonContext>();
-  private rulesetRemoveButtonContextCache = new Map<Rule, RulesetRemoveButtonContext>();
-  private ruleRemoveButtonContextCache = new Map<Rule, RuleRemoveButtonContext>();
-  private buttonGroupContext!: ButtonGroupContext;
+  protected defaultEmptyList: any[] = [];
+  protected operatorsCache!: Record<string, string[]>;
+  protected inputContextCache = new Map<Rule, InputContext>();
+  protected operatorContextCache = new Map<Rule, OperatorContext>();
+  protected fieldContextCache = new Map<Rule, FieldContext>();
+  protected entityContextCache = new Map<Rule, EntityContext>();
+  protected rulesetAddRuleButtonContextCache = new Map<Rule, RulesetAddRuleButtonContext>();
+  protected rulesetAddRulesetButtonContextCache = new Map<Rule, RulesetAddRulesetButtonContext>();
+  protected ruleRemoveButtonContextCache = new Map<Rule, RuleRemoveButtonContext>();
+  protected buttonGroupContext!: ButtonGroupContext;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+  }
 
   // ----------OnChanges Implementation----------
 
@@ -234,9 +215,10 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   get value(): RuleSet {
     return this.data;
   }
+
   set value(value: RuleSet) {
     // When component is initialized without a formControl, null is passed to value
-    this.data = value || { condition: 'and', rules: [] };
+    this.data = value || {condition: 'and', rules: []};
     this.handleDataChange();
   }
 
@@ -279,8 +261,8 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   }
 
   findQueryInput(type: string): QueryInputDirective | undefined {
-    const templates = this.parentInputTemplates || this.inputTemplates;
-    return (templates||[]).find((item) => item.queryInputType === type);
+    const templates = this.inputTemplates;
+    return (templates || []).find((item) => item.queryInputType === type);
   }
 
   getOperators(field: string): string[] {
@@ -450,24 +432,7 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
     if (this.config.addRuleSet) {
       this.config.addRuleSet(parent);
     } else {
-      parent.rules = parent.rules.concat([{ condition: 'and', rules: [] }]);
-    }
-
-    this.handleTouched();
-    this.handleDataChange();
-  }
-
-  removeRuleSet(ruleset?: RuleSet, parent?: RuleSet): void {
-    if (this.disabled) {
-      return;
-    }
-
-    ruleset = ruleset || this.data;
-    parent = parent || this.parentValue;
-    if (this.config.removeRuleSet) {
-      this.config.removeRuleSet(ruleset, parent);
-    } else {
-      parent.rules = parent.rules.filter((r) => r !== ruleset);
+      parent.rules = parent.rules.concat([{condition: 'and', rules: []}]);
     }
 
     this.handleTouched();
@@ -603,57 +568,52 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   }
 
   getOperatorTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentOperatorTemplate || this.operatorTemplate;
+    const t = this.operatorTemplate;
     return t?.template;
   }
 
   getFieldTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentFieldTemplate || this.fieldTemplate;
+    const t = this.fieldTemplate;
     return t?.template;
   }
 
   getEntityTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentEntityTemplate || this.entityTemplate;
+    const t = this.entityTemplate;
     return t?.template;
   }
 
   getArrowIconTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentArrowIconTemplate || this.arrowIconTemplate;
+    const t = this.arrowIconTemplate;
     return t?.template;
   }
 
   getButtonGroupTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentButtonGroupTemplate || this.buttonGroupTemplate;
+    const t = this.buttonGroupTemplate;
     return t?.template;
   }
 
   getSwitchGroupTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentSwitchGroupTemplate || this.switchGroupTemplate;
+    const t = this.switchGroupTemplate;
     return t?.template;
   }
 
   getRulesetAddRuleButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentRulesetAddRuleButtonTemplate || this.rulesetAddRuleButtonTemplate;
+    const t = this.rulesetAddRuleButtonTemplate;
     return t?.template;
   }
 
   getRulesetAddRulesetButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentRulesetAddRulesetButtonTemplate || this.rulesetAddRulesetButtonTemplate;
-    return t?.template;
-  }
-
-  getRulesetRemoveButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentRulesetRemoveButtonTemplate || this.rulesetRemoveButtonTemplate;
+    const t = this.rulesetAddRulesetButtonTemplate;
     return t?.template;
   }
 
   getRuleRemoveButtonTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentRuleRemoveButtonTemplate || this.ruleRemoveButtonTemplate;
+    const t = this.ruleRemoveButtonTemplate;
     return t?.template;
   }
 
   getEmptyWarningTemplate(): TemplateRef<any> | undefined {
-    const t = this.parentEmptyWarningTemplate || this.emptyWarningTemplate;
+    const t = this.emptyWarningTemplate;
     return t?.template;
   }
 
@@ -662,6 +622,7 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   }
 
   getQueryRulesetClassName(local: LocalRuleMeta): string | undefined {
+    if (!this.config.wrapRoot) return;
     let cls = this.getClassNames('ruleSet');
     if (local.invalid) {
       cls += ' ' + this.getClassNames('invalidRuleSet');
@@ -676,10 +637,10 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   getButtonGroupContext(): ButtonGroupContext {
     if (!this.buttonGroupContext) {
       this.buttonGroupContext = {
-        parentValue: this.parentValue,
+        parentValue: undefined,
         addRule: this.addRule.bind(this),
         addRuleSet: this.allowRuleset && this.addRuleSet.bind(this),
-        removeRuleSet: this.allowRuleset && this.parentValue && this.removeRuleSet.bind(this),
+        removeRuleSet: undefined,
         getDisabledState: this.getDisabledState,
         $implicit: this.data
       };
@@ -709,16 +670,6 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
     return this.rulesetAddRulesetButtonContextCache.get(rule);
   }
 
-  getRulesetRemoveButtonContext(rule: Rule): RulesetRemoveButtonContext | undefined {
-    if (!this.rulesetRemoveButtonContextCache.has(rule)) {
-      this.rulesetRemoveButtonContextCache.set(rule, {
-        removeRuleSet: this.removeRuleSet.bind(this),
-        getDisabledState: this.getDisabledState,
-        $implicit: rule
-      });
-    }
-    return this.rulesetRemoveButtonContextCache.get(rule);
-  }
 
   getRuleRemoveButtonContext(rule: Rule): RuleRemoveButtonContext | undefined {
     if (!this.ruleRemoveButtonContextCache.has(rule)) {
@@ -878,22 +829,16 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
     }
   }
 
-  private handleDataChange(): void {
+  protected handleDataChange(): void {
     this.changeDetectorRef.markForCheck();
     if (this.onChangeCallback) {
       this.onChangeCallback();
     }
-    if (this.parentChangeCallback) {
-      this.parentChangeCallback();
-    }
   }
 
-  private handleTouched(): void {
+  protected handleTouched(): void {
     if (this.onTouchedCallback) {
       this.onTouchedCallback();
-    }
-    if (this.parentTouchedCallback) {
-      this.parentTouchedCallback();
     }
   }
 

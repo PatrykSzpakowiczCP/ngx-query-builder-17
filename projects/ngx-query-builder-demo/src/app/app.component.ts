@@ -135,6 +135,10 @@ export class AppComponent {
     this.currentConfig = this.entityConfig;
   }
 
+  wrapRoot(event: Event) {
+    this.currentConfig = {...this.currentConfig, wrapRoot: (event.target as HTMLInputElement).checked};
+  }
+
   switchModes(event: Event) {
     this.currentConfig = (event.target as HTMLInputElement).checked ? this.entityConfig : this.config;
   }

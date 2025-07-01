@@ -16,6 +16,7 @@ import {QueryRulesetAddRulesetButtonDirective} from './directives/query-ruleset-
 import {QueryRulesetRemoveButtonDirective} from './directives/query-ruleset-remove-button.directive';
 import {QueryRuleRemoveButtonDirective} from './directives/query-rule-remove-button.directive';
 import {QueryEmptyWarningDirective} from './directives/query-empty-warning.directive';
+import {InnerQueryBuilderComponent} from "./components/inner-query-builder/inner-query-builder.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -23,6 +24,7 @@ import {QueryEmptyWarningDirective} from './directives/query-empty-warning.direc
   ],
   declarations: [
     QueryBuilderComponent,
+    InnerQueryBuilderComponent,
     QueryInputDirective,
     QueryOperatorDirective,
     QueryFieldDirective,

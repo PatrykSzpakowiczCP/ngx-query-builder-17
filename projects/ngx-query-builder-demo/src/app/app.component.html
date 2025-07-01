@@ -18,6 +18,9 @@
           <label><input type="checkbox" [(ngModel)]='allowCollapse'>Allow Collapse</label>
         </div>
         <div>
+          <label><input type="checkbox" (change)="wrapRoot($event)">Wrap root</label>
+        </div>
+        <div>
           <label><input type="checkbox" [(ngModel)]='persistValueOnFieldChange'>Persist Values on Field Change</label>
         </div>
         <div>
