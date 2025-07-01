@@ -9,7 +9,8 @@
       <ng-template [ngTemplateOutlet]="_switchGroupTpl"/>
       <ng-template [ngTemplateOutlet]="_buttonGroupTpl"/>
     </div>
-    <div [ngClass]="getClassNames('treeContainer', data.collapsed ? 'collapsed' : null)" (transitionend)="transitionEnd()" #treeContainer>
+    <div [ngClass]="getClassNames('treeContainer', data.collapsed ? 'collapsed' : null)"
+         (transitionend)="transitionEnd()" #treeContainer>
       @if (data && data.rules) {
         <ul [ngClass]="getClassNames('tree')">
           @for (rule of data.rules; track rule; let i = $index) {
@@ -21,7 +22,8 @@
                       <div [ngClass]="getClassNames('ruleContent')">
                         @if (entities && entities.length > 0) {
                           <div class="q-inline-block-display">
-                            <ng-template [ngTemplateOutlet]="_entityTpl" [ngTemplateOutletContext]="{ $implicit: rule, index: i }"/>
+                            <ng-template [ngTemplateOutlet]="_entityTpl"
+                                         [ngTemplateOutletContext]="{ $implicit: rule, index: i }"/>
                           </div>
                         }
                         <ng-template [ngTemplateOutlet]="_fieldTpl" [ngTemplateOutletContext]="{ $implicit: rule }"/>
@@ -29,7 +31,8 @@
                         <ng-template [ngTemplateOutlet]="_inputTpl" [ngTemplateOutletContext]="{ $implicit: rule }"/>
                       </div>
                       <div [ngClass]="getClassNames('ruleActions')">
-                        <ng-template [ngTemplateOutlet]="_ruleRemoveButtonTpl" [ngTemplateOutletContext]="{ $implicit: rule }"/>
+                        <ng-template [ngTemplateOutlet]="_ruleRemoveButtonTpl"
+                                     [ngTemplateOutletContext]="{ $implicit: rule }"/>
                       </div>
                     </div>
                   }
@@ -77,12 +80,12 @@
       <div [ngClass]="getClassNames('switchGroup', 'transition')">
         <div [ngClass]="getClassNames('switchControl')">
           <input type="radio" [ngClass]="getClassNames('switchRadio')" [(ngModel)]="data.condition" [disabled]=disabled
-            value="and" #andOption />
+                 value="and" #andOption/>
           <label (click)="changeCondition(andOption.value)" [ngClass]="getClassNames('switchLabel')">AND</label>
         </div>
         <div [ngClass]="getClassNames('switchControl')">
           <input type="radio" [ngClass]="getClassNames('switchRadio')" [(ngModel)]="data.condition" [disabled]=disabled
-            value="or" #orOption />
+                 value="or" #orOption/>
           <label (click)="changeCondition(orOption.value)" [ngClass]="getClassNames('switchLabel')">OR</label>
         </div>
       </div>
@@ -144,7 +147,8 @@
   @if (getRulesetRemoveButtonTemplate(); as template) {
     <ng-container *ngTemplateOutlet="template; context: getRulesetRemoveButtonContext(rule)"></ng-container>
   } @else {
-    <button type="button" (click)="removeRuleSet()" [ngClass]="getClassNames('button', 'removeButton')" [disabled]=disabled>
+    <button type="button" (click)="removeRuleSet()" [ngClass]="getClassNames('button', 'removeButton')"
+            [disabled]=disabled>
       <i [ngClass]="getClassNames('removeIcon')"></i>
     </button>
   }
@@ -157,11 +161,12 @@
     <ng-container *ngTemplateOutlet="template; context: getEntityContext(rule)"></ng-container>
   } @else {
     <div [ngClass]="getClassNames('entityControlSize')">
-      <select [ngClass]="getClassNames('entityControl')" [(ngModel)]="rule.entity" (ngModelChange)="changeEntity($event, rule, index, data)"
-        [disabled]="disabled">
+      <select [ngClass]="getClassNames('entityControl')" [(ngModel)]="rule.entity"
+              (ngModelChange)="changeEntity($event, rule, index, data)"
+              [disabled]="disabled">
         @for (entity of entities; track entity) {
           <option [ngValue]="entity.value">
-            {{entity.name}}
+            {{ entity.name }}
           </option>
         }
       </select>
@@ -175,11 +180,12 @@
     <ng-container *ngTemplateOutlet="template; context: getFieldContext(rule)"></ng-container>
   } @else {
     <div [ngClass]="getClassNames('fieldControlSize')">
-      <select [ngClass]="getClassNames('fieldControl')" [(ngModel)]="rule.field" (ngModelChange)="changeField($event, rule)"
-        [disabled]="disabled">
+      <select [ngClass]="getClassNames('fieldControl')" [(ngModel)]="rule.field"
+              (ngModelChange)="changeField($event, rule)"
+              [disabled]="disabled">
         @for (field of getFields(rule.entity || ''); track field) {
           <option [ngValue]="field.value">
-            {{field.name}}
+            {{ field.name }}
           </option>
         }
       </select>
@@ -193,11 +199,12 @@
     <ng-container *ngTemplateOutlet="template; context: getOperatorContext(rule)"></ng-container>
   } @else {
     <div [ngClass]="getClassNames('operatorControlSize')">
-      <select [ngClass]="getClassNames('operatorControl')" [(ngModel)]="rule.operator" (ngModelChange)="changeOperator(rule)"
-        [disabled]="disabled">
+      <select [ngClass]="getClassNames('operatorControl')" [(ngModel)]="rule.operator"
+              (ngModelChange)="changeOperator(rule)"
+              [disabled]="disabled">
         @for (operator of getOperators(rule.field); track operator) {
           <option [ngValue]="operator">
-            {{operator}}
+            {{ operator }}
           </option>
         }
       </select>
@@ -214,43 +221,43 @@
       @switch (getInputType(rule.field, rule.operator || '')) {
         @case ('string') {
           <input [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled" type="text">
+                 [disabled]="disabled" type="text">
         }
         @case ('number') {
           <input [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled" type="number">
+                 [disabled]="disabled" type="number">
         }
         @case ('date') {
           <input [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled" type="date">
+                 [disabled]="disabled" type="date">
         }
         @case ('time') {
           <input [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled" type="time">
+                 [disabled]="disabled" type="time">
         }
         @case ('category') {
           <select [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled">
+                  [disabled]="disabled">
             @for (opt of getOptions(rule.field); track opt) {
               <option [ngValue]="opt.value">
-                {{opt.name}}
+                {{ opt.name }}
               </option>
             }
           </select>
         }
         @case ('multiselect') {
           <select [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled" multiple>
+                  [disabled]="disabled" multiple>
             @for (opt of getOptions(rule.field); track opt) {
               <option [ngValue]="opt.value">
-                {{opt.name}}
+                {{ opt.name }}
               </option>
             }
           </select>
         }
         @case ('boolean') {
           <input [ngClass]="getClassNames('inputControl')" [(ngModel)]="rule.value" (ngModelChange)="changeInput()"
-            [disabled]="disabled" type="checkbox">
+                 [disabled]="disabled" type="checkbox">
         }
       }
     </div>
@@ -265,7 +272,8 @@
     </div>
   } @else {
     <div [ngClass]="getClassNames('removeButtonSize', 'rightAlign')">
-      <button type="button" [ngClass]="getClassNames('button', 'removeButton')" (click)="removeRule(rule, data)" [disabled]=disabled>
+      <button type="button" [ngClass]="getClassNames('button', 'removeButton')" (click)="removeRule(rule, data)"
+              [disabled]=disabled>
         <i [ngClass]="getClassNames('removeIcon')"></i>
       </button>
     </div>
@@ -282,7 +290,7 @@
   } @else {
     @if (local.invalid) {
       <p [ngClass]="getClassNames('emptyWarning')">
-        {{emptyMessage}}
+        {{ emptyMessage }}
       </p>
     }
   }

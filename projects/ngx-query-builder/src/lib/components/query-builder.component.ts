@@ -129,6 +129,7 @@ export class QueryBuilderComponent implements OnChanges, ControlValueAccessor, V
   @Input() operatorMap!: Record<string, string[]>;
   @Input() parentValue!: RuleSet;
   @Input() config: QueryBuilderConfig = { fields: {} };
+
   @Input() parentArrowIconTemplate!: QueryArrowIconDirective;
   @Input() parentInputTemplates!: QueryList<QueryInputDirective>;
   @Input() parentOperatorTemplate!: QueryOperatorDirective;
