@@ -71,6 +71,7 @@ export interface QueryBuilderClassNames {
   ruleActions?: string;
   ruleSet?: string;
   invalidRuleSet?: string;
+  root?: string;
   emptyWarning?: string;
   fieldControl?: string;
   fieldControlSize?: string;

@@ -117,6 +117,7 @@ export abstract class BaseQueryBuilder implements ControlValueAccessor, Validato
     ruleActions: 'q-rule-actions',
     ruleSet: 'q-ruleset',
     invalidRuleSet: 'q-invalid-ruleset',
+    root: 'q-root',
     emptyWarning: 'q-empty-warning',
     fieldControl: 'q-field-control',
     fieldControlSize: 'q-control-size',
@@ -652,9 +653,8 @@ export abstract class BaseQueryBuilder implements ControlValueAccessor, Validato
   getQueryRulesetClassName(local: LocalRuleMeta): string | undefined {
     if (this.isRoot() && !this.config().wrapRoot) return;
     let cls = this.getClassNames('ruleSet');
-    if (local.invalid) {
-      cls += ' ' + this.getClassNames('invalidRuleSet');
-    }
+    if (local.invalid) cls += ' ' + this.getClassNames('invalidRuleSet');
+    if (this.isRoot()) cls += ' ' + this.getClassNames('root');
     return cls;
   }
 
