@@ -113,6 +113,9 @@
           <ng-container *ngTemplateOutlet="_rulesetAddRulesetButtonTpl"></ng-container>
         }
       }
+      @if (!isRoot() && allowRuleset()) {
+        <ng-container *ngTemplateOutlet="_rulesetRemoveButtonTpl"></ng-container>
+      }
     </div>
   }
 
@@ -140,6 +143,19 @@
       </button>
     }
   }
+</ng-template>
+
+<!--_rulesetRemoveButtonTpl-->
+<ng-template #_rulesetRemoveButtonTpl let-rule>
+  @if (getRulesetRemoveButtonTemplate(); as template) {
+    <ng-container *ngTemplateOutlet="template; context: getRulesetRemoveButtonContext(rule)" />
+  } @else {
+    <button type="button" (click)="removeRuleSet()" [ngClass]="getClassNames('button', 'removeButton')"
+            [disabled]=disabled()>
+      <i [ngClass]="getClassNames('removeIcon')"></i>
+    </button>
+  }
+
 </ng-template>
 
 
@@ -266,7 +282,6 @@
       </button>
     </div>
   }
-
 </ng-template>
 
 <!--_emptyWarningTpl-->
