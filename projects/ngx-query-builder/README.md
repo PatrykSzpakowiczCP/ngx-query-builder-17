@@ -13,7 +13,8 @@ A modernized Angular 4+ query builder based on jQuery QueryBuilder. Support for 
 
 ## Install
 
-- Angular latest, use 0.6.3+
+- Angular 20, use 20.X.X
+- Angular 19, use 19.X.X
 
 `npm install @eliot-ragueneau/ngx-query-builder`
 
@@ -290,7 +291,7 @@ Can be used to customize the default empty warning message, alternatively can sp
 ### Code structure
 
 - BaseQueryBuilder (Logic container - hidden)
-  - **QueryBuilderComponent (Root component - exported)**
+  - QueryBuilderComponent (Root component - **exported**)
   - InnerQueryBuilderComponent (Recursive component - hidden)
 
 ## build
