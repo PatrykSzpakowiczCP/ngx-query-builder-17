@@ -1,4 +1,4 @@
-import {Component, Input, QueryList, TemplateRef} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input, TemplateRef} from '@angular/core';
 import {QueryBuilderComponent} from "../query-builder.component";
 import {QueryArrowIconDirective} from "../../directives/query-arrow-icon.directive";
 import {QueryInputDirective} from "../../directives/query-input.directive";
@@ -25,24 +25,25 @@ import {
     templateUrl: './inner-query-builder.component.html',
     styleUrl: '../query-builder.component.css',
     standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InnerQueryBuilderComponent extends QueryBuilderComponent {
-    @Input() parentValue!: RuleSet;
+    readonly parentValue = input.required<RuleSet>();
 
-    @Input() parentArrowIconTemplate?: QueryArrowIconDirective;
-    @Input() parentInputTemplates?: QueryList<QueryInputDirective>;
-    @Input() parentOperatorTemplate?: QueryOperatorDirective;
-    @Input() parentFieldTemplate?: QueryFieldDirective;
-    @Input() parentEntityTemplate?: QueryEntityDirective;
-    @Input() parentSwitchGroupTemplate?: QuerySwitchGroupDirective;
-    @Input() parentButtonGroupTemplate?: QueryButtonGroupDirective;
-    @Input() parentRulesetAddRuleButtonTemplate?: QueryRulesetAddRuleButtonDirective;
-    @Input() parentRulesetAddRulesetButtonTemplate?: QueryRulesetAddRulesetButtonDirective;
-    @Input() parentRulesetRemoveButtonTemplate?: QueryRulesetRemoveButtonDirective;
-    @Input() parentRuleRemoveButtonTemplate?: QueryRuleRemoveButtonDirective;
-    @Input() parentEmptyWarningTemplate?: QueryEmptyWarningDirective;
-    @Input() parentChangeCallback?: () => void;
-    @Input() parentTouchedCallback?: () => void;
+    readonly parentArrowIconTemplate = input<QueryArrowIconDirective>();
+    readonly parentInputTypeToTemplate = input.required<Map<string, QueryInputDirective>>();
+    readonly parentOperatorTemplate = input<QueryOperatorDirective>();
+    readonly parentFieldTemplate = input<QueryFieldDirective>();
+    readonly parentEntityTemplate = input<QueryEntityDirective>();
+    readonly parentSwitchGroupTemplate = input<QuerySwitchGroupDirective>();
+    readonly parentButtonGroupTemplate = input<QueryButtonGroupDirective>();
+    readonly parentRulesetAddRuleButtonTemplate = input<QueryRulesetAddRuleButtonDirective>();
+    readonly parentRulesetAddRulesetButtonTemplate = input<QueryRulesetAddRulesetButtonDirective>();
+    readonly parentRulesetRemoveButtonTemplate = input<QueryRulesetRemoveButtonDirective>();
+    readonly parentRuleRemoveButtonTemplate = input<QueryRuleRemoveButtonDirective>();
+    readonly parentEmptyWarningTemplate = input<QueryEmptyWarningDirective>();
+    readonly parentChangeCallback = input<() => void>();
+    readonly parentTouchedCallback = input<() => void>();
 
     private rulesetRemoveButtonContextCache = new Map<Rule, RulesetRemoveButtonContext>();
 
@@ -57,12 +58,12 @@ export class InnerQueryBuilderComponent extends QueryBuilderComponent {
     override getButtonGroupContext(): ButtonGroupContext {
         if (!this.buttonGroupContext) {
             this.buttonGroupContext = {
-                parentValue: this.parentValue,
+                parentValue: this.parentValue(),
                 addRule: this.addRule.bind(this),
-                addRuleSet: this.allowRuleset && this.addRuleSet.bind(this),
-                removeRuleSet: this.allowRuleset && this.parentValue && this.removeRuleSet.bind(this),
+                addRuleSet: this.allowRuleset() && this.addRuleSet.bind(this),
+                removeRuleSet: this.allowRuleset() && this.parentValue() && this.removeRuleSet.bind(this),
                 getDisabledState: this.getDisabledState,
-                $implicit: this.data
+                $implicit: this.data()
             };
         }
         return this.buttonGroupContext;
@@ -80,12 +81,13 @@ export class InnerQueryBuilderComponent extends QueryBuilderComponent {
     }
 
     removeRuleSet(ruleset?: RuleSet, parent?: RuleSet): void {
-        if (this.disabled) return;
+        if (this.disabled()) return;
 
-        ruleset = ruleset || this.data;
-        parent = parent || this.parentValue;
-        if (this.config.removeRuleSet) {
-            this.config.removeRuleSet(ruleset, parent);
+        ruleset = ruleset || this.data();
+        parent = parent || this.parentValue();
+        const config = this.config();
+        if (config.removeRuleSet) {
+            config.removeRuleSet(ruleset, parent);
         } else {
             parent.rules = parent.rules.filter((r) => r !== ruleset);
         }
@@ -95,74 +97,79 @@ export class InnerQueryBuilderComponent extends QueryBuilderComponent {
     }
 
     getRulesetRemoveButtonTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentRulesetRemoveButtonTemplate;
+        const t = this.parentRulesetRemoveButtonTemplate();
         return t?.template;
     }
 
+    override findQueryInput(type: string): QueryInputDirective | undefined {
+        return this.parentInputTypeToTemplate().get(type);
+    }
 
 
     override getOperatorTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentOperatorTemplate;
+        const t = this.parentOperatorTemplate();
         return t?.template;
     }
 
     override getFieldTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentFieldTemplate;
+        const t = this.parentFieldTemplate();
         return t?.template;
     }
 
     override getEntityTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentEntityTemplate;
+        const t = this.parentEntityTemplate();
         return t?.template;
     }
 
     override getArrowIconTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentArrowIconTemplate;
+        const t = this.parentArrowIconTemplate();
         return t?.template;
     }
 
     override getButtonGroupTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentButtonGroupTemplate;
+        const t = this.parentButtonGroupTemplate();
         return t?.template;
     }
 
     override getSwitchGroupTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentSwitchGroupTemplate;
+        const t = this.parentSwitchGroupTemplate();
         return t?.template;
     }
 
     override getRulesetAddRuleButtonTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentRulesetAddRuleButtonTemplate;
+        const t = this.parentRulesetAddRuleButtonTemplate();
         return t?.template;
     }
 
     override getRulesetAddRulesetButtonTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentRulesetAddRulesetButtonTemplate;
+        const t = this.parentRulesetAddRulesetButtonTemplate();
         return t?.template;
     }
 
     override getRuleRemoveButtonTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentRuleRemoveButtonTemplate;
+        const t = this.parentRuleRemoveButtonTemplate();
         return t?.template;
     }
 
     override getEmptyWarningTemplate(): TemplateRef<any> | undefined {
-        const t = this.parentEmptyWarningTemplate;
+        const t = this.parentEmptyWarningTemplate();
         return t?.template;
     }
 
     protected override handleDataChange(): void {
         super.handleDataChange();
-        if (this.parentChangeCallback) {
-            this.parentChangeCallback();
+        const parentChangeCallback = this.parentChangeCallback();
+        if (parentChangeCallback) {
+            parentChangeCallback();
         }
     }
 
 
     protected override handleTouched() {
         super.handleTouched();
-        if (this.parentTouchedCallback) {
-            this.parentTouchedCallback();
+        const parentTouchedCallback = this.parentTouchedCallback();
+        if (parentTouchedCallback) {
+            parentTouchedCallback();
         }
     }
 }

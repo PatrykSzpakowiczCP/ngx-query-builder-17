@@ -28,9 +28,11 @@
         </div>
       </div>
 
-      <textarea class="output">{{query | json}}</textarea>
+      <textarea class="output">{{ query | json }}</textarea>
     </div>
-    <ngx-query-builder [formControl]='queryCtrl' [config]='currentConfig' [allowRuleset]='allowRuleset' [allowCollapse]='allowCollapse' [persistValueOnFieldChange]='persistValueOnFieldChange'>
+    <ngx-query-builder [formControl]='queryCtrl' [config]='currentConfig' [allowRuleset]='allowRuleset'
+                       [allowCollapse]='allowCollapse' [persistValueOnFieldChange]='persistValueOnFieldChange'>
+
       <ng-container *queryInput="let rule; type: 'textarea'; let getDisabledState=getDisabledState">
       <textarea class="text-input text-area" [(ngModel)]="rule.value" [disabled]=getDisabledState()
                 placeholder="Custom Textarea"></textarea>
