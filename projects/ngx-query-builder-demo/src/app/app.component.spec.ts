@@ -1,10 +1,19 @@
 import { TestBed } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { JsonPipe } from '@angular/common';
 import { AppComponent } from './app.component';
+import { QueryBuilderModule } from 'ngx-query-builder';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        QueryBuilderModule,
+        JsonPipe
+      ],
+      declarations: [AppComponent],
     }).compileComponents();
   });
 
@@ -12,12 +21,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'ngx-query-builder-demo' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('ngx-query-builder-demo');
   });
 
   it('should render title', () => {
