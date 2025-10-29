@@ -1,6 +1,6 @@
-# @patryk-szpakowicz/ngx-query-builder-17
+# @pszpakowicz-cp/ngx-query-builder-17
 
-[![npm version](https://badge.fury.io/js/@patryk-szpakowicz%2Fngx-query-builder-17.svg)](https://badge.fury.io/js/@patryk-szpakowicz%2Fngx-query-builder-17)
+[![npm version](https://badge.fury.io/js/@pszpakowicz-cp%2Fngx-query-builder-17.svg)](https://badge.fury.io/js/@pszpakowicz-cp%2Fngx-query-builder-17)
 
 **Angular 17.3.12 Compatible Query Builder with Signal Queries**
 
@@ -25,7 +25,7 @@ The original `@eliot-ragueneau/ngx-query-builder` targets Angular 20+, but many 
 
 | Angular Version | Package Version | Signal Queries |
 |----------------|----------------|----------------|
-| 17.3.x | `@patryk-szpakowicz/ngx-query-builder-17` | ✅ Supported |
+| 17.3.x | `@pszpakowicz-cp/ngx-query-builder-17` | ✅ Supported |
 | 20.x | `@eliot-ragueneau/ngx-query-builder` | ✅ Supported |
 
 # Getting Started
@@ -33,13 +33,13 @@ The original `@eliot-ragueneau/ngx-query-builder` targets Angular 20+, but many 
 ## Install
 
 ```bash
-npm install @patryk-szpakowicz/ngx-query-builder-17
+npm install @pszpakowicz-cp/ngx-query-builder-17
 ```
 
 ## Usage
 
 ```typescript
-import { QueryBuilderModule } from '@patryk-szpakowicz/ngx-query-builder-17';
+import { QueryBuilderModule } from '@pszpakowicz-cp/ngx-query-builder-17';
 
 @NgModule({
   imports: [QueryBuilderModule]
