@@ -1,7 +1,7 @@
 {
-  "name": "ngx-query-builder",
-  "version": "0.0.0",
-  "description": "A modernized Angular 2+ query builder based on jquery QueryBuilder",
+  "name": "@patryk-szpakowicz/ngx-query-builder-17",
+  "version": "17.3.12",
+  "description": "Angular 17+ query builder with signal queries - forked from @eliot-ragueneau/ngx-query-builder",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -14,46 +14,54 @@
   "private": true,
   "keywords": [
     "angular",
+    "angular17",
     "query",
     "builder",
+    "signal-queries",
     "jquery",
     "querybuilder",
     "visual"
   ],
   "author": {
-    "name": "eliot-ragueneau",
-    "url": "https://github.com/EliotRagueneau/"
+    "name": "Patryk Szpakowicz",
+    "url": "https://github.com/PatrykSzpakowiczCP/"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EliotRagueneau/ngx-query-builder"
+    "url": "https://github.com/PatrykSzpakowiczCP/ngx-query-builder-17"
   },
   "bugs": {
-    "url": "https://github.com/EliotRagueneau/ngx-query-builder/issues"
+    "url": "https://github.com/PatrykSzpakowiczCP/ngx-query-builder-17/issues"
   },
-  "homepage": "https://github.com/EliotRagueneau/ngx-query-builder",
+  "homepage": "https://github.com/PatrykSzpakowiczCP/ngx-query-builder-17",
   "dependencies": {
-    "@angular/animations": "^20.0.0",
-    "@angular/cdk": "^20.0.0",
-    "@angular/common": "^20.0.0",
-    "@angular/compiler": "^20.0.0",
-    "@angular/core": "^20.0.0",
-    "@angular/forms": "^20.0.0",
-    "@angular/material": "^20.0.0",
-    "@angular/platform-browser": "^20.0.0",
-    "@angular/platform-browser-dynamic": "^20.0.0",
-    "@angular/router": "^20.0.0",
-    "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "zone.js": "~0.15.1"
+    "@angular/animations": "17.3.12",
+    "@angular/cdk": "17.3.10",
+    "@angular/common": "17.3.12",
+    "@angular/compiler": "17.3.12",
+    "@angular/core": "17.3.12",
+    "@angular/forms": "17.3.12",
+    "@angular/material": "17.3.10",
+    "@angular/platform-browser": "17.3.12",
+    "@angular/platform-browser-dynamic": "17.3.12",
+    "@angular/router": "17.3.12",
+    "rxjs": "7.8.1",
+    "tslib": "2.8.1",
+    "zone.js": "0.14.10"
   },
   "devDependencies": {
-    "@angular/build": "^20.0.0",
-    "@angular/cli": "^20.0.0",
-    "@angular/compiler-cli": "^20.0.0",
+    "@angular-devkit/build-angular": "17.3.12",
+    "@angular/cli": "17.3.12",
+    "@angular/compiler-cli": "17.3.12",
+    "@angular-eslint/builder": "17.5.3",
+    "@angular-eslint/eslint-plugin": "17.5.3",
+    "@angular-eslint/eslint-plugin-template": "17.5.3",
+    "@angular-eslint/schematics": "17.5.3",
+    "@angular-eslint/template-parser": "17.5.3",
     "@types/jasmine": "~5.1.0",
-    "angular-eslint": "^20.0.0",
-    "eslint": "^9.6.0",
+    "@typescript-eslint/eslint-plugin": "7.18.0",
+    "@typescript-eslint/parser": "7.18.0",
+    "eslint": "8.57.1",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -61,8 +69,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "less": "^4.2.0",
-    "ng-packagr": "^20.0.0",
-    "typescript": "~5.8.3",
-    "typescript-eslint": "^8.35.0"
+    "ng-packagr": "17.3.0",
+    "typescript": "5.4.5"
   }
 }

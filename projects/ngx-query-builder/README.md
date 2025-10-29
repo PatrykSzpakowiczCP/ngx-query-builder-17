@@ -1,22 +1,57 @@
-# ngx-query-builder
+# @patryk-szpakowicz/ngx-query-builder-17
 
-[![npm version](https://badge.fury.io/js/@eliot-ragueneau%2Fngx-query-builder.svg)](https://badge.fury.io/js/@eliot-ragueneau%2Fngx-query-builder)
-[![npm downloads a month](https://img.shields.io/npm/dm/@eliot-ragueneau%2Fngx-query-builder.svg)](https://img.shields.io/npm/dm/@eliot-ragueneau%2Fngx-query-builder.svg)
-[![npm downloads a week](https://img.shields.io/npm/dt/@eliot-ragueneau%2Fngx-query-builder.svg)](https://img.shields.io/npm/dt/@eliot-ragueneau%2Fngx-query-builder.svg)
-[![Contribute with Gitpod](https://img.shields.io/badge/Contribute%20with-Gitpod-908a85?logo=gitpod&color=green)](https://gitpod.io/#https://github.com/EliotRagueneau/ngx-query-builder)
+[![npm version](https://badge.fury.io/js/@patryk-szpakowicz%2Fngx-query-builder-17.svg)](https://badge.fury.io/js/@patryk-szpakowicz%2Fngx-query-builder-17)
 
-A modernized Angular 4+ query builder based on jQuery QueryBuilder. Support for heavy customization with Angular components and provides a flexible way to handle custom data types.
+**Angular 17.3.12 Compatible Query Builder with Signal Queries**
 
-***Forked from (https://github.com/zebzhao/Angular-QueryBuilder) as the original project has stopped updating and does not support the latest Angular versions, so I will continue to maintain it and support the latest versions of Angular.***
+A modernized Angular 17+ query builder with signal query support, forked from [@eliot-ragueneau/ngx-query-builder](https://github.com/EliotRagueneau/ngx-query-builder) and downgraded for Angular 17.3.x compatibility.
+
+## ✨ **What's Special About This Fork**
+
+- **🎯 Angular 17.3.12 Compatible** - Specifically downgraded for Angular 17 projects
+- **🚀 Signal Queries Preserved** - Maintains modern `contentChild()` and `contentChildren()` APIs (available since Angular 17.2.0)
+- **📦 Zero Breaking Changes** - Identical API to the original Angular 20 version
+- **🔧 Production Ready** - Fully tested and validated with comprehensive test suite
+
+## 🚨 **Why This Fork Exists**
+
+The original `@eliot-ragueneau/ngx-query-builder` targets Angular 20+, but many production applications are still on Angular 17.x LTS. This fork provides:
+
+1. **Backward Compatibility** - Works with Angular 17.3.x
+2. **Modern API Support** - Keeps signal queries instead of downgrading to legacy decorators
+3. **Stable Dependencies** - Exact version alignment with Angular 17 ecosystem
+
+## 📋 **Version Compatibility**
+
+| Angular Version | Package Version | Signal Queries |
+|----------------|----------------|----------------|
+| 17.3.x | `@patryk-szpakowicz/ngx-query-builder-17` | ✅ Supported |
+| 20.x | `@eliot-ragueneau/ngx-query-builder` | ✅ Supported |
 
 # Getting Started
 
 ## Install
 
-- Angular 20, use 20.X.X
-- Angular 19, use 19.X.X
+```bash
+npm install @patryk-szpakowicz/ngx-query-builder-17
+```
 
-`npm install @eliot-ragueneau/ngx-query-builder`
+## Usage
+
+```typescript
+import { QueryBuilderModule } from '@patryk-szpakowicz/ngx-query-builder-17';
+
+@NgModule({
+  imports: [QueryBuilderModule]
+})
+export class AppModule {}
+```
+
+## Credits
+
+- **Original Creator**: [@zebzhao](https://github.com/zebzhao/Angular-QueryBuilder) - Initial Angular QueryBuilder implementation
+- **Angular 20 Version**: [@eliot-ragueneau](https://github.com/EliotRagueneau/ngx-query-builder) - Modernized for Angular 20+
+- **Angular 17 Fork**: [@PatrykSzpakowiczCP](https://github.com/PatrykSzpakowiczCP) - Downgraded for Angular 17.3.x compatibility
 
 ---
 

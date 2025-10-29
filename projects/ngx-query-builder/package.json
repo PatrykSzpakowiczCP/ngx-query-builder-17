@@ -1,21 +1,21 @@
 {
-  "name": "@eliot-ragueneau/ngx-query-builder",
-  "version": "20.0.2",
+  "name": "@patryk-szpakowicz/ngx-query-builder-17",
+  "version": "17.3.12",
   "repository": {
     "type": "git",
-    "url": "https://github.com/EliotRagueneau/ngx-query-builder"
+    "url": "https://github.com/PatrykSzpakowiczCP/ngx-query-builder-17"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EliotRagueneau/ngx-query-builder/issues"
+    "url": "https://github.com/PatrykSzpakowiczCP/ngx-query-builder-17/issues"
   },
-  "homepage": "https://github.com/EliotRagueneau/ngx-query-builder",
+  "homepage": "https://github.com/PatrykSzpakowiczCP/ngx-query-builder-17",
   "peerDependencies": {
-    "@angular/common": "^20.0.0",
-    "@angular/core": "^20.0.0"
+    "@angular/common": ">=17.3.0 <18.0.0",
+    "@angular/core": ">=17.3.0 <18.0.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.8.0"
   },
   "sideEffects": false
 }

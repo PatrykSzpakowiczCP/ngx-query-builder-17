@@ -10,7 +10,7 @@
       "prefix": "lib",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "project": "projects/ngx-query-builder/ng-package.json"
           },
@@ -25,7 +25,7 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/ngx-query-builder/tsconfig.spec.json",
             "polyfills": [
@@ -58,7 +58,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": "dist/ngx-query-builder-demo",
             "index": "projects/ngx-query-builder-demo/src/index.html",
@@ -71,7 +71,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/ngx-query-builder-demo/public"
+                "input": "projects/ngx-query-builder-demo/public",
+                "output": "/"
               }
             ],
             "styles": [
@@ -104,7 +105,7 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
               "buildTarget": "ngx-query-builder-demo:build:production"
@@ -116,10 +117,10 @@
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
               "zone.js",
@@ -130,7 +131,8 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "projects/ngx-query-builder-demo/public"
+                "input": "projects/ngx-query-builder-demo/public",
+                "output": "/"
               }
             ],
             "styles": [
